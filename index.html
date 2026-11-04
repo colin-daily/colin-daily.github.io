@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colin Daily | Engineering Portfolio</title>
+<meta name="description" content="Engineering project portfolio of Colin Daily: soft robotics sensors, heart valve simulator research, CAD, 3D printing and simulation.">
+<style>
+:root {
+  --teal: #2f9e94; --teal-soft: #e3f3f1; --teal-dark: #1d6b64;
+  --ink: #23262b; --muted: #5d6470; --line: #e3e5e8; --bg: #fbfbf9; --card: #ffffff;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body { margin: 0; font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.6; font-size: 16px; }
+a { color: var(--teal); }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+header.top { position: sticky; top: 0; z-index: 10; background: rgba(251,251,249,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+.logo { font-family: var(--serif); font-weight: 700; color: var(--ink); text-decoration: none; font-size: 18px; white-space: nowrap; }
+.logo span { color: var(--ink); }
+nav { display: flex; gap: 20px; overflow-x: auto; }
+nav a { color: var(--muted); text-decoration: none; font-size: 14px; white-space: nowrap; }
+nav a:hover { color: var(--teal); }
+
+.hero { padding: 72px 0 48px; border-bottom: 4px solid var(--teal); }
+.hero .eyebrow { color: var(--teal); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: 13px; margin: 0 0 8px; }
+.hero h1 { font-family: var(--serif); font-size: clamp(40px, 7vw, 64px); line-height: 1.05; margin: 0 0 16px; color: var(--ink); }
+.hero p.lede { font-size: 19px; color: var(--muted); max-width: 680px; margin: 0 0 28px; }
+.stats { display: flex; flex-wrap: wrap; gap: 12px 40px; margin: 0 0 28px; padding: 0; list-style: none; }
+.stats b { display: block; font-family: var(--serif); font-size: 30px; color: var(--ink); line-height: 1.1; }
+.stats span { font-size: 14px; color: var(--muted); }
+.btn { display: inline-block; padding: 10px 18px; border-radius: 6px; background: var(--teal); color: #fff; text-decoration: none; font-weight: 600; font-size: 15px; margin-right: 8px; }
+.btn.ghost { background: transparent; color: var(--teal); border: 1.5px solid var(--teal); }
+
+section { padding: 56px 0 8px; }
+h2 { font-family: var(--serif); font-size: 30px; margin: 0 0 4px; }
+h2::after { content: ""; display: block; width: 56px; height: 3px; background: var(--teal); margin-top: 10px; }
+.sec-sub { color: var(--muted); margin: 10px 0 24px; }
+
+.skills-all { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; margin: 20px 0 0; }
+.skills-all li { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 14px; }
+
+.project { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px; background: var(--card);
+  border: 1px solid var(--line); border-top: 3px solid var(--teal); border-radius: 10px; padding: 28px; margin: 24px 0; }
+.project h3 { font-family: var(--serif); font-size: 22px; margin: 0 0 4px; line-height: 1.25; }
+.badge { display: inline-block; vertical-align: middle; font-family: var(--sans); font-size: 12px; font-weight: 700; background: var(--teal-dark); color: #fff; padding: 3px 9px; border-radius: 999px; margin-left: 4px; }
+.meta { color: var(--muted); font-size: 14px; margin: 0 0 14px; }
+.project p { margin: 0 0 10px; }
+.label { font-weight: 700; margin-bottom: 4px !important; }
+.project ul { margin: 0 0 12px; padding-left: 20px; }
+.project li { margin-bottom: 4px; }
+.result { background: var(--teal-soft); border-left: 3px solid var(--teal); padding: 10px 14px; border-radius: 0 6px 6px 0; }
+ul.tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 !important; list-style: none; margin: 14px 0 0 !important; }
+ul.tags li { font-size: 12.5px; background: #f1f2f4; color: #3a3f47; padding: 3px 10px; border-radius: 4px; margin: 0; }
+
+.figs { display: grid; gap: 16px; align-content: start; }
+.figs.many { grid-template-columns: 1fr 1fr; }
+figure { margin: 0; }
+.zoom { display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: zoom-in; overflow: hidden; }
+.zoom img { display: block; width: 100%; height: auto; max-height: 300px; object-fit: contain; transition: transform .2s; }
+.zoom:hover img { transform: scale(1.03); }
+figcaption { font-size: 12.5px; font-style: italic; color: var(--muted); margin-top: 6px; text-align: center; }
+
+#contact { padding-bottom: 72px; }
+.contact-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+footer { border-top: 4px solid var(--teal); padding: 24px 0; color: var(--muted); font-size: 14px; }
+
+.meta { line-height: 1.45; }
+.meta span { display: block; }
+.figs.many figure:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.figs.many figure:last-child:nth-child(odd) img { max-height: 260px; }
+h1, h2, h3, figcaption, .sec-sub, .hero p.lede { text-wrap: balance; }
+p, li { text-wrap: pretty; overflow-wrap: break-word; }
+.badge { margin: 0 0 8px !important; white-space: nowrap; }
+.stats li, .btn, ul.tags li, .skills-all li { white-space: nowrap; }
+.edu { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.edu > div { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--teal); border-radius: 8px; padding: 18px 20px; }
+.edu h3 { font-family: var(--serif); font-size: 19px; margin: 0 0 4px; }
+.edu p { margin: 0; color: var(--muted); font-size: 15px; }
+.edu p.status { color: var(--teal-dark); font-size: 13px; font-weight: 600; margin-top: 4px; }
+@media (max-width: 760px) { .edu { grid-template-columns: 1fr; } }
+dialog { border: 0; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; }
+dialog::backdrop { background: rgba(15,18,22,.85); }
+dialog img { display: block; max-width: 94vw; max-height: 86vh; border-radius: 6px; background: #fff; }
+dialog p { color: #fff; text-align: center; margin: 10px 0 0; font-size: 14px; }
+dialog button { position: fixed; top: 16px; right: 20px; font-size: 28px; line-height: 1; background: none; border: 0; color: #fff; cursor: pointer; }
+
+@media (max-width: 760px) {
+  .project { grid-template-columns: 1fr; padding: 20px; gap: 20px; }
+  .figs { grid-template-columns: 1fr 1fr; }
+  nav { display: none; }
+  .hero { padding: 48px 0 36px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="#">Colin <span>Daily</span></a>
+  <nav><a href="#rams">Soft Robotics Sensors</a><a href="#bbdl">Heart Valve Simulator</a><a href="#projects">Competitions &amp; Personal Projects</a><a href="#coursework">Course Projects</a><a href="#education">Education</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav>
+</div></header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <p class="eyebrow">Engineering Portfolio</p>
+  <h1>Colin Daily</h1>
+  <p class="lede">Master of Science student in bioengineering at UC Riverside with a concentration in biomedical imaging. Holds a Bachelor of Science in bioengineering from UCR, with hands-on experience building soft robotic sensors and heart valve simulator hardware, from CAD and 3D-printed molds to silicone casting and simulation.</p>
+  <ul class="stats">
+    <li><b>18</b><span>projects</span></li>
+    <li><b>2</b><span>research labs</span></li>
+  </ul>
+  <a class="btn" href="#rams">See my work</a>
+  <a class="btn ghost" href="#contact">Get in touch</a>
+</div></div>
+
+<div class="wrap">
+<section id="education">
+  <h2>Education</h2>
+  <div class="edu">
+    <div><h3>Master of Science in Bioengineering</h3><p>University of California, Riverside</p><p>Concentration in Biomedical Imaging</p><p class="status">In progress</p></div>
+    <div><h3>Bachelor of Science in Bioengineering</h3><p>University of California, Riverside</p><p class="status">Completed</p></div>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <ul class="skills-all"><li>SolidWorks (CAD)</li><li>3D Printing (PLA &amp; ABS molds)</li><li>Silicone Casting (Dragon Skin 30)</li><li>COMSOL Multiphysics</li><li>MATLAB</li><li>Arduino</li><li>Electrical Conductivity Testing</li><li>Sonication</li><li>Solvent Evaporation</li><li>UV Curing</li><li>Prototype Assembly</li></ul>
+</section>
+
+<section id="rams"><h2>Research: Soft Robotics Sensors</h2><p class="sec-sub">RaMS Lab under Dr. Jun Sheng, UC Riverside</p>
+<article class="project" id="p1">
+  <div class="text">
+    <h3>CNT/PDMS Composite</h3>
+    <p class="meta"><span>RaMS Lab (Dr. Jun Sheng), UCR</span><span>Student Undergraduate Researcher</span><span>Solo project</span></p>
+    <p><strong>Goal:</strong> Create a homogeneous composite mixture of carbon nanotubes (CNT) and polydimethylsiloxane (PDMS) for use as a conductive biosensor in soft robotic applications.</p>
+    <p class="label">What I did</p>
+    <ul><li>Created an SOP to achieve a homogeneous mixture of CNT and PDMS (Fig. 1), plus an SOP for using the sonicator (Q125)</li><li>Handled chloroform as a universal solvent, mixed via sonication</li><li>Carefully evaporated the chloroform to reduce the mixture to the desired compounds, then cured it (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> A flexible, conductive biosensor whose resistance reading varies with deformation.</p>
+    <ul class="tags"><li>Sonication</li><li>Solvent Evaporation</li><li>UV Curing</li><li>Electrical Conductivity Testing</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s02_1.jpg" data-cap="Fig. 1: Homogeneous mixture of CNT/PDMS" aria-label="Enlarge: Fig. 1: Homogeneous mixture of CNT/PDMS"><img src="images/s02_1.jpg" alt="Fig. 1: Homogeneous mixture of CNT/PDMS" width="114" height="118" loading="lazy"></button><figcaption>Fig. 1: Homogeneous mixture of CNT/PDMS</figcaption></figure><figure><button class="zoom" data-src="images/s02_2.jpg" data-cap="Fig. 2: Deposited CNT/PDMS mixture" aria-label="Enlarge: Fig. 2: Deposited CNT/PDMS mixture"><img src="images/s02_2.jpg" alt="Fig. 2: Deposited CNT/PDMS mixture" width="203" height="158" loading="lazy"></button><figcaption>Fig. 2: Deposited CNT/PDMS mixture</figcaption></figure></div>
+</article>
+<article class="project" id="p2">
+  <div class="text">
+    <h3>CNT/PDMS Composite Housing: Iteration 1</h3>
+    <p class="meta"><span>RaMS Lab (Dr. Jun Sheng), UCR</span><span>Student Undergraduate Researcher</span><span>Solo project</span></p>
+    <p><strong>Goal:</strong> Create a silicone tube with a capped end, similar in dimension to a commercial tube, to house the CNT/PDMS composite.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed a CAD model for a mold that produces a silicone tube of the desired dimensions (Fig. 1)</li><li>3D printed the PLA mold</li><li>Used Dragon Skin 30 for the tube material</li><li>Carefully deposited the CNT/PDMS composite into a premade channel (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> A fully encased silicone tube, similar to commercial dimensions, that endures deformation while protecting the CNT/PDMS composite.</p>
+    <ul class="tags"><li>SolidWorks</li><li>3D Printing (PLA molds)</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s03_1.jpg" data-cap="Fig. 1: CAD for PLA mold" aria-label="Enlarge: Fig. 1: CAD for PLA mold"><img src="images/s03_1.jpg" alt="Fig. 1: CAD for PLA mold" width="268" height="246" loading="lazy"></button><figcaption>Fig. 1: CAD for PLA mold</figcaption></figure><figure><button class="zoom" data-src="images/s03_2.jpg" data-cap="Fig. 2: Silicone tube with CNT/PDMS composite" aria-label="Enlarge: Fig. 2: Silicone tube with CNT/PDMS composite"><img src="images/s03_2.jpg" alt="Fig. 2: Silicone tube with CNT/PDMS composite" width="258" height="108" loading="lazy"></button><figcaption>Fig. 2: Silicone tube with CNT/PDMS composite</figcaption></figure></div>
+</article>
+<article class="project" id="p3">
+  <div class="text">
+    <h3>CNT/PDMS Composite Housing: Iteration 2</h3>
+    <p class="meta"><span>RaMS Lab (Dr. Jun Sheng), UCR</span><span>Student Undergraduate Researcher</span><span>Solo project</span></p>
+    <p><strong>Goal:</strong> Improve on the previous capped silicone tube and improve measurable resistance.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed and 3D printed a CAD model for a mold that produces a silicone tube of the desired dimensions (Fig. 1)</li><li>Used Dragon Skin 30 for the tube material</li><li>Placed a strip of CNT/PDMS composite into a premade cutout (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> A fully encased silicone tube that endures deformation while protecting the composite. Switching from a thin column to a strip of CNT/PDMS gave more stable resistance values.</p>
+    <ul class="tags"><li>SolidWorks</li><li>3D Printing (PLA molds)</li><li>Electrical Conductivity Testing</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s04_1.jpg" data-cap="Fig. 1: CAD for PLA mold" aria-label="Enlarge: Fig. 1: CAD for PLA mold"><img src="images/s04_1.jpg" alt="Fig. 1: CAD for PLA mold" width="844" height="569" loading="lazy"></button><figcaption>Fig. 1: CAD for PLA mold</figcaption></figure><figure><button class="zoom" data-src="images/s04_2.jpg" data-cap="Fig. 2: Silicone tube with CNT/PDMS composite" aria-label="Enlarge: Fig. 2: Silicone tube with CNT/PDMS composite"><img src="images/s04_2.jpg" alt="Fig. 2: Silicone tube with CNT/PDMS composite" width="736" height="632" loading="lazy"></button><figcaption>Fig. 2: Silicone tube with CNT/PDMS composite</figcaption></figure></div>
+</article>
+<article class="project" id="p4">
+  <div class="text">
+    <h3>CNT/PDMS Composite Housing: Iteration 3</h3>
+    <p class="meta"><span>RaMS Lab (Dr. Jun Sheng), UCR</span><span>Student Undergraduate Researcher</span><span>Solo project</span></p>
+    <p><strong>Goal:</strong> Improve on the previous capped silicone tube and improve structural stability.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed and 3D printed a new mold that makes it easier to remove the tube after curing (Fig. 1)</li><li>Used Dragon Skin 30 for the tube material</li><li>Repeated the previous iteration&#x27;s steps to place a CNT/Dragon Skin 30 composite (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> Better silicone tube quality after curing, while keeping the stable resistance readings from the previous iteration.</p>
+    <ul class="tags"><li>SolidWorks</li><li>3D Printing (PLA molds)</li><li>Electrical Conductivity Testing</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s05_2.jpg" data-cap="Fig. 1: CAD for PLA mold" aria-label="Enlarge: Fig. 1: CAD for PLA mold"><img src="images/s05_2.jpg" alt="Fig. 1: CAD for PLA mold" width="654" height="477" loading="lazy"></button><figcaption>Fig. 1: CAD for PLA mold</figcaption></figure><figure><button class="zoom" data-src="images/s05_1.jpg" data-cap="Fig. 2: Silicone tube with CNT/Dragon Skin 30 composite" aria-label="Enlarge: Fig. 2: Silicone tube with CNT/Dragon Skin 30 composite"><img src="images/s05_1.jpg" alt="Fig. 2: Silicone tube with CNT/Dragon Skin 30 composite" width="1400" height="331" loading="lazy"></button><figcaption>Fig. 2: Silicone tube with CNT/Dragon Skin 30 composite</figcaption></figure></div>
+</article></section><section id="bbdl"><h2>Research: Heart Valve Simulator</h2><p class="sec-sub">BBDL Lab under Dr. Chung-Hao Lee, UC Riverside · CAD Lead / Prototyping Engineer on a 6-person team</p>
+<article class="project" id="p5">
+  <div class="text">
+    <h3>Ventricle Chamber Redesign</h3>
+    <p class="meta"><span>BBDL Lab (Dr. Chung-Hao Lee), UCR</span><span>Student (CAD Lead / Prototyping Engineer)</span><span>Part of a 6-person team</span></p>
+    <p><strong>Goal:</strong> Redesign the ventricle chamber from a previous capstone project (Fig. 1).</p>
+    <p class="label">What I did</p>
+    <ul><li>Redesigned the ventricle chamber to accommodate dual-camera photogrammetry panels (Fig. 2)</li><li>Integrated holes for sensors and pipe fittings, plus a slide for native or artificial tricuspid valves</li><li>Constructed the chamber with polycarbonate panels (Fig. 3)</li><li>Implemented a custom silicone O-ring for a watertight seal</li></ul>
+    <p class="result"><strong>Result:</strong> An improved chamber that allows dual-camera photogrammetry, interchangeable tricuspid valves (native/artificial) and a watertight seal, while keeping a structure similar to the original.</p>
+    <ul class="tags"><li>SolidWorks</li><li>Constructive Assembly</li></ul>
+  </div>
+  <div class="figs many"><figure><button class="zoom" data-src="images/s06_2.jpg" data-cap="Fig. 1: CAD of previous ventricle chamber" aria-label="Enlarge: Fig. 1: CAD of previous ventricle chamber"><img src="images/s06_2.jpg" alt="Fig. 1: CAD of previous ventricle chamber" width="882" height="782" loading="lazy"></button><figcaption>Fig. 1: CAD of previous ventricle chamber</figcaption></figure><figure><button class="zoom" data-src="images/s06_1.jpg" data-cap="Fig. 2: CAD of ventricle chamber redesign" aria-label="Enlarge: Fig. 2: CAD of ventricle chamber redesign"><img src="images/s06_1.jpg" alt="Fig. 2: CAD of ventricle chamber redesign" width="1002" height="815" loading="lazy"></button><figcaption>Fig. 2: CAD of ventricle chamber redesign</figcaption></figure><figure><button class="zoom" data-src="images/s06_3.jpg" data-cap="Fig. 3: Redesigned chamber, assembled" aria-label="Enlarge: Fig. 3: Redesigned chamber, assembled"><img src="images/s06_3.jpg" alt="Fig. 3: Redesigned chamber, assembled" width="1081" height="989" loading="lazy"></button><figcaption>Fig. 3: Redesigned chamber, assembled</figcaption></figure></div>
+</article>
+<article class="project" id="p6">
+  <div class="text">
+    <h3>Artificial Tricuspid Valve: Iteration 1</h3>
+    <p class="meta"><span>BBDL Lab (Dr. Chung-Hao Lee), UCR</span><span>Student (CAD Lead / Prototyping Engineer)</span><span>Part of a 6-person team</span></p>
+    <p><strong>Goal:</strong> Improve on the artificial tricuspid valve from a previous capstone project (Fig. 1).</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed a CAD mold for a silicone artificial tricuspid valve suited to repeated flow-loop simulations (Fig. 2)</li><li>3D printed the PLA mold and cast the valve in Dragon Skin 30 silicone</li><li>Cut along a score mark to create equally partitioned leaflets</li><li>Fitted the valve with a custom PLA annular ring for flow-loop compatibility (Fig. 3)</li></ul>
+    <p class="result"><strong>Result:</strong> An improved valve with no gap between leaflets, directional flow, and compatibility with the new ventricle chamber.</p>
+    <ul class="tags"><li>SolidWorks</li><li>3D Printing (PLA molds)</li></ul>
+  </div>
+  <div class="figs many"><figure><button class="zoom" data-src="images/s07_3.jpg" data-cap="Fig. 1: Previous artificial tricuspid valve" aria-label="Enlarge: Fig. 1: Previous artificial tricuspid valve"><img src="images/s07_3.jpg" alt="Fig. 1: Previous artificial tricuspid valve" width="675" height="683" loading="lazy"></button><figcaption>Fig. 1: Previous artificial tricuspid valve</figcaption></figure><figure><button class="zoom" data-src="images/s07_1.jpg" data-cap="Fig. 2: CAD for PLA valve mold" aria-label="Enlarge: Fig. 2: CAD for PLA valve mold"><img src="images/s07_1.jpg" alt="Fig. 2: CAD for PLA valve mold" width="319" height="271" loading="lazy"></button><figcaption>Fig. 2: CAD for PLA valve mold</figcaption></figure><figure><button class="zoom" data-src="images/s07_2.jpg" data-cap="Fig. 3: Silicone valve fitted with PLA annular ring" aria-label="Enlarge: Fig. 3: Silicone valve fitted with PLA annular ring"><img src="images/s07_2.jpg" alt="Fig. 3: Silicone valve fitted with PLA annular ring" width="919" height="907" loading="lazy"></button><figcaption>Fig. 3: Silicone valve fitted with PLA annular ring</figcaption></figure></div>
+</article>
+<article class="project" id="p7">
+  <div class="text">
+    <h3>Artificial Tricuspid Valve: Iteration 2</h3>
+    <p class="meta"><span>BBDL Lab (Dr. Chung-Hao Lee), UCR</span><span>Student (CAD Lead / Prototyping Engineer)</span><span>Part of a 6-person team</span></p>
+    <p><strong>Goal:</strong> Improve the artificial valve with physiologically similar dimensions and tracking markers.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed a CAD mold for a silicone valve with camera-tracking imprints (Fig. 1)</li><li>3D printed the PLA mold and cast the valve in Dragon Skin 30 silicone</li><li>Cut along a score mark to create equally partitioned leaflets</li><li>Fitted the valve with a custom PLA annular ring for flow-loop compatibility (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> An improved valve with physiologically similar conditions, coaptation, and radial tracking imprints.</p>
+    <ul class="tags"><li>SolidWorks</li><li>3D Printing (PLA molds)</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s08_1.jpg" data-cap="Fig. 1: CAD for PLA valve mold" aria-label="Enlarge: Fig. 1: CAD for PLA valve mold"><img src="images/s08_1.jpg" alt="Fig. 1: CAD for PLA valve mold" width="1270" height="1296" loading="lazy"></button><figcaption>Fig. 1: CAD for PLA valve mold</figcaption></figure><figure><button class="zoom" data-src="images/s08_2.jpg" data-cap="Fig. 2: Silicone valve fitted with PLA annular ring" aria-label="Enlarge: Fig. 2: Silicone valve fitted with PLA annular ring"><img src="images/s08_2.jpg" alt="Fig. 2: Silicone valve fitted with PLA annular ring" width="1050" height="1400" loading="lazy"></button><figcaption>Fig. 2: Silicone valve fitted with PLA annular ring</figcaption></figure></div>
+</article>
+<article class="project" id="p8">
+  <div class="text">
+    <h3>Native Tricuspid Valve Housing: Iteration 1</h3>
+    <p class="meta"><span>BBDL Lab (Dr. Chung-Hao Lee), UCR</span><span>Student (CAD Lead / Prototyping Engineer)</span><span>Part of a 6-person team</span></p>
+    <p><strong>Goal:</strong> Design an adapter for native (porcine) tissue, with tensionable chordae anchors, that fits the redesigned ventricle chamber.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed a CAD model to hold native tissue (Fig. 1)</li><li>Included a suture ring, tensionable chordae anchors and an annular ring</li><li>Combined TPU and PLA parts</li><li>Designed for compatibility with the ventricle chamber rebuild</li></ul>
+    <p class="result"><strong>Result:</strong> A CAD design for native tissue integration with customizable tension and secure fitting via suturing to the ring.</p>
+    <ul class="tags"><li>SolidWorks</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s09_1.jpg" data-cap="Fig. 1: CAD for native valve housing, iteration 1 (TPU and PLA)" aria-label="Enlarge: Fig. 1: CAD for native valve housing, iteration 1 (TPU and PLA)"><img src="images/s09_1.jpg" alt="Fig. 1: CAD for native valve housing, iteration 1 (TPU and PLA)" width="429" height="416" loading="lazy"></button><figcaption>Fig. 1: CAD for native valve housing, iteration 1 (TPU and PLA)</figcaption></figure></div>
+</article>
+<article class="project" id="p9">
+  <div class="text">
+    <h3>Native Tricuspid Valve Housing: Iteration 2</h3>
+    <p class="meta"><span>BBDL Lab (Dr. Chung-Hao Lee), UCR</span><span>Student (CAD Lead / Prototyping Engineer)</span><span>Part of a 6-person team</span></p>
+    <p><strong>Goal:</strong> Improve tension control over the previous iteration and implement a more efficient suture ring.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed an adapter with adjustable chordae tension via a sliding inner channel and set screw (Fig. 1)</li><li>Specified a custom silicone suture ring, PLA annular ring and outer channel, and a TPU inner channel with chordae anchor points</li><li>Used set screws to hold the rotatable inner channel in place</li></ul>
+    <p class="result"><strong>Result:</strong> An easier suture ring and uniform chordae adjustment in both radial and longitudinal directions.</p>
+    <ul class="tags"><li>SolidWorks</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s10_1.jpg" data-cap="Fig. 1: CAD for native valve housing, iteration 2 (TPU, PLA and silicone)" aria-label="Enlarge: Fig. 1: CAD for native valve housing, iteration 2 (TPU, PLA and silicone)"><img src="images/s10_1.jpg" alt="Fig. 1: CAD for native valve housing, iteration 2 (TPU, PLA and silicone)" width="424" height="515" loading="lazy"></button><figcaption>Fig. 1: CAD for native valve housing, iteration 2 (TPU, PLA and silicone)</figcaption></figure></div>
+</article>
+<article class="project" id="p10">
+  <div class="text">
+    <h3>Native Tricuspid Valve Housing: Iteration 3</h3>
+    <p class="meta"><span>BBDL Lab (Dr. Chung-Hao Lee), UCR</span><span>Student (CAD Lead / Prototyping Engineer)</span><span>Part of a 6-person team</span></p>
+    <p><strong>Goal:</strong> Improve on the previous iteration, which lacked independently adjustable chordae mounts in the radial, longitudinal and lateral directions.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed a CAD model for a native tissue adapter that allows independent tensioning of each chorda (Fig. 1)</li><li>3D printed the housing with multiple moving parts for adjustable chordae tensioning (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> An adjustable native valve housing, ready for eventual native valve integration.</p>
+    <ul class="tags"><li>SolidWorks</li><li>3D Printing (PLA)</li></ul>
+  </div>
+  <div class="figs many"><figure><button class="zoom" data-src="images/nv3_1.jpg" data-cap="Fig. 1a: CAD for native valve housing, iteration 3" aria-label="Enlarge: Fig. 1a: CAD for native valve housing, iteration 3"><img src="images/nv3_1.jpg" alt="Fig. 1a: CAD for native valve housing, iteration 3" width="702" height="700" loading="lazy"></button><figcaption>Fig. 1a: CAD for native valve housing, iteration 3</figcaption></figure><figure><button class="zoom" data-src="images/nv3_3.jpg" data-cap="Fig. 1b: CAD, alternate view (PLA and silicone)" aria-label="Enlarge: Fig. 1b: CAD, alternate view (PLA and silicone)"><img src="images/nv3_3.jpg" alt="Fig. 1b: CAD, alternate view (PLA and silicone)" width="682" height="741" loading="lazy"></button><figcaption>Fig. 1b: CAD, alternate view (PLA and silicone)</figcaption></figure><figure><button class="zoom" data-src="images/nv3_2.jpg" data-cap="Fig. 2: 3D-printed native valve housing" aria-label="Enlarge: Fig. 2: 3D-printed native valve housing"><img src="images/nv3_2.jpg" alt="Fig. 2: 3D-printed native valve housing" width="1400" height="1275" loading="lazy"></button><figcaption>Fig. 2: 3D-printed native valve housing</figcaption></figure></div>
+</article>
+<article class="project" id="p11">
+  <div class="text">
+    <h3>Calibration Valve</h3>
+    <p class="meta"><span>BBDL Lab (Dr. Chung-Hao Lee), UCR</span><span>Student (CAD Lead / Prototyping Engineer)</span><span>Part of a 6-person team</span></p>
+    <p><strong>Goal:</strong> Fabricate a tool with small protrusions to calibrate camera tracking.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed a CAD model with layered stacks that follow the artificial valve&#x27;s deformation (Fig. 1)</li><li>Added ring protrusions in a circular pattern on each stack so the tracking algorithm can follow them</li><li>3D printed it in PLA and fastened it directly to the acrylic slide (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> Successful calibration of the tracking algorithm, enabling displacement tracking of the artificial valve.</p>
+    <ul class="tags"><li>SolidWorks</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s11_2.jpg" data-cap="Fig. 1: CAD for calibration valve" aria-label="Enlarge: Fig. 1: CAD for calibration valve"><img src="images/s11_2.jpg" alt="Fig. 1: CAD for calibration valve" width="545" height="547" loading="lazy"></button><figcaption>Fig. 1: CAD for calibration valve</figcaption></figure><figure><button class="zoom" data-src="images/s11_1.jpg" data-cap="Fig. 2: 3D-printed calibration valve" aria-label="Enlarge: Fig. 2: 3D-printed calibration valve"><img src="images/s11_1.jpg" alt="Fig. 2: 3D-printed calibration valve" width="1330" height="1400" loading="lazy"></button><figcaption>Fig. 2: 3D-printed calibration valve</figcaption></figure></div>
+</article>
+<article class="project" id="p12">
+  <div class="text">
+    <h3>Custom Silicone Balloon</h3>
+    <p class="meta"><span>BBDL Lab (Dr. Chung-Hao Lee), UCR</span><span>Student (CAD Lead / Prototyping Engineer)</span><span>Part of a 6-person team</span></p>
+    <p><strong>Goal:</strong> Design custom silicone balloons of varying wall thickness to replace the previous balloon used with the solenoid pump.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed a CAD mold for casting the balloons (Fig. 1)</li><li>3D printed the mold in ABS so it could be dissolved away in an acetone bath (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> Custom balloons with the desired tensile strength and elasticity, giving adequate recoil speed and force when deflating.</p>
+    <ul class="tags"><li>SolidWorks</li><li>3D Printing (ABS molds)</li></ul>
+  </div>
+  <div class="figs many"><figure><button class="zoom" data-src="images/s12_1.jpg" data-cap="Fig. 1a: CAD for balloon casting mold" aria-label="Enlarge: Fig. 1a: CAD for balloon casting mold"><img src="images/s12_1.jpg" alt="Fig. 1a: CAD for balloon casting mold" width="361" height="776" loading="lazy"></button><figcaption>Fig. 1a: CAD for balloon casting mold</figcaption></figure><figure><button class="zoom" data-src="images/s12_2.jpg" data-cap="Fig. 1b: 3D-printed casting mold" aria-label="Enlarge: Fig. 1b: 3D-printed casting mold"><img src="images/s12_2.jpg" alt="Fig. 1b: 3D-printed casting mold" width="633" height="1400" loading="lazy"></button><figcaption>Fig. 1b: 3D-printed casting mold</figcaption></figure><figure><button class="zoom" data-src="images/s12_3.jpg" data-cap="Fig. 2: Custom silicone balloons" aria-label="Enlarge: Fig. 2: Custom silicone balloons"><img src="images/s12_3.jpg" alt="Fig. 2: Custom silicone balloons" width="1256" height="506" loading="lazy"></button><figcaption>Fig. 2: Custom silicone balloons</figcaption></figure></div>
+</article>
+<article class="project" id="p13">
+  <div class="text">
+    <h3>Silicone Compliance Cap</h3>
+    <p class="meta"><span>BBDL Lab (Dr. Chung-Hao Lee), UCR</span><span>Student (CAD Lead / Prototyping Engineer)</span><span>Part of a 6-person team</span></p>
+    <p><strong>Goal:</strong> Design a silicone compliance cap that fits around the exposed atrial chamber and conforms around the sous vide heater.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed a CAD mold for fabricating the compliance cap (Fig. 1)</li><li>3D printed the mold in PLA and cast the cap in Dragon Skin 30 (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> A compliance cap that works with the sous vide heater, reduces heat loss, and has the desired recoil strength and elasticity.</p>
+    <ul class="tags"><li>SolidWorks</li><li>3D Printing (PLA molds)</li><li>Silicone Casting</li></ul>
+  </div>
+  <div class="figs many"><figure><button class="zoom" data-src="images/cap_1.jpg" data-cap="Fig. 1a: CAD for compliance cap mold" aria-label="Enlarge: Fig. 1a: CAD for compliance cap mold"><img src="images/cap_1.jpg" alt="Fig. 1a: CAD for compliance cap mold" width="757" height="678" loading="lazy"></button><figcaption>Fig. 1a: CAD for compliance cap mold</figcaption></figure><figure><button class="zoom" data-src="images/cap_3.jpg" data-cap="Fig. 1b: Silicone compliance cap" aria-label="Enlarge: Fig. 1b: Silicone compliance cap"><img src="images/cap_3.jpg" alt="Fig. 1b: Silicone compliance cap" width="1400" height="1158" loading="lazy"></button><figcaption>Fig. 1b: Silicone compliance cap</figcaption></figure><figure><button class="zoom" data-src="images/cap_2.jpg" data-cap="Fig. 2: Compliance cap fastened to atrial chamber" aria-label="Enlarge: Fig. 2: Compliance cap fastened to atrial chamber"><img src="images/cap_2.jpg" alt="Fig. 2: Compliance cap fastened to atrial chamber" width="1400" height="559" loading="lazy"></button><figcaption>Fig. 2: Compliance cap fastened to atrial chamber</figcaption></figure></div>
+</article></section><section id="projects"><h2>Competitions &amp; Personal Projects</h2>
+<article class="project" id="p14">
+  <div class="text">
+    <h3>Biomechanical Alignment eXosystem (B.A.X.)</h3><span class="badge">4th place of 60 teams</span>
+    <p class="meta"><span>BMES BearHack 2025, UCR</span><span>Student Competitor</span><span>Part of a 4-person team</span></p>
+    <p><strong>Goal:</strong> Create a cost-effective wearable device to break the habit of slouching.</p>
+    <p class="label">What I did</p>
+    <ul><li>Developed CAD models (Fig. 1) and a 3D-printed housing to integrate and condense the device hardware</li><li>Built a low-cost functional prototype with Arduino and household materials within a 30-hour hackathon (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> Placed 4th overall out of 60 teams for innovation, usability and execution.</p>
+    <ul class="tags"><li>SolidWorks</li><li>3D Printing</li><li>Arduino</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s13_1.jpg" data-cap="Fig. 1: CAD component holder" aria-label="Enlarge: Fig. 1: CAD component holder"><img src="images/s13_1.jpg" alt="Fig. 1: CAD component holder" width="857" height="718" loading="lazy"></button><figcaption>Fig. 1: CAD component holder</figcaption></figure><figure><button class="zoom" data-src="images/s13_2.jpg" data-cap="Fig. 2: B.A.X. unit (posture corrector)" aria-label="Enlarge: Fig. 2: B.A.X. unit (posture corrector)"><img src="images/s13_2.jpg" alt="Fig. 2: B.A.X. unit (posture corrector)" width="1338" height="901" loading="lazy"></button><figcaption>Fig. 2: B.A.X. unit (posture corrector)</figcaption></figure></div>
+</article>
+<article class="project" id="p15">
+  <div class="text">
+    <h3>V6 Engine</h3>
+    <p class="meta"><span>Personal project</span><span>Solo project</span></p>
+    <p><strong>Goal:</strong> Model a V6 engine scaled from given dimensions.</p>
+    <p class="label">What I did</p>
+    <ul><li>Followed schematics with provided dimensions to recreate a V6 engine (Fig. 1)</li><li>Used mates to connect moving parts, allowing simulated motion</li></ul>
+    <p class="result"><strong>Result:</strong> A scaled V6 engine that accurately reflects a real V6 design.</p>
+    <ul class="tags"><li>SolidWorks</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s14_1.jpg" data-cap="Fig. 1: CAD V6 assembly" aria-label="Enlarge: Fig. 1: CAD V6 assembly"><img src="images/s14_1.jpg" alt="Fig. 1: CAD V6 assembly" width="1078" height="682" loading="lazy"></button><figcaption>Fig. 1: CAD V6 assembly</figcaption></figure></div>
+</article></section><section id="coursework"><h2>Course Projects</h2><p class="sec-sub">UC Riverside</p>
+<article class="project" id="p16">
+  <div class="text">
+    <h3>Biomechanical Analysis of Smart Hydrogels for Tendon Repair</h3>
+    <p class="meta"><span>Biomechanics of the Human Body, UCR</span><span>Student</span><span>Part of a 4-person team</span></p>
+    <p><strong>Goal:</strong> Compare hydrogel compositions and validate improvements in stress distribution.</p>
+    <p class="label">What I did</p>
+    <ul><li>Created 3D CAD models of collagen-based hydrogels to simulate tendon repair scaffolds (Fig. 1)</li><li>Ran COMSOL Multiphysics simulations of stress-strain behavior and swelling under physiological conditions</li><li>Evaluated Young&#x27;s modulus, Poisson&#x27;s ratio and diffusion coefficient to assess hydrogel performance</li></ul>
+    <p class="result"><strong>Result:</strong> Found collagen-based hydrogels the most promising, with significantly improved stress distribution.</p>
+    <ul class="tags"><li>SolidWorks</li><li>COMSOL Multiphysics</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s15_1.jpg" data-cap="Fig. 1: Hydrogel model used in COMSOL stress-strain simulation" aria-label="Enlarge: Fig. 1: Hydrogel model used in COMSOL stress-strain simulation"><img src="images/s15_1.jpg" alt="Fig. 1: Hydrogel model used in COMSOL stress-strain simulation" width="309" height="685" loading="lazy"></button><figcaption>Fig. 1: Hydrogel model used in COMSOL stress-strain simulation</figcaption></figure></div>
+</article>
+<article class="project" id="p17">
+  <div class="text">
+    <h3>Carotid Body Tumor Modeling &amp; Circulatory Flow Dynamics</h3>
+    <p class="meta"><span>Circulation Physiology, UCR</span><span>Student</span><span>Part of a 4-person team</span></p>
+    <p><strong>Goal:</strong> Investigate tumor-induced blood-flow changes and their implications for chemotherapy effectiveness.</p>
+    <p class="label">What I did</p>
+    <ul><li>Designed 3D CAD models of carotid artery bifurcations with varying tumor sizes (Fig. 1)</li><li>Ran COMSOL Multiphysics simulations of velocity fields and laminar flow under physiological conditions</li><li>Analyzed how tumor progression (Type 2 and Type 3) alters flow velocity, drug diffusion and uptake (Fig. 2)</li></ul>
+    <p class="result"><strong>Result:</strong> Tumor growth alters blood flow, making treatment less effective while straining circulation.</p>
+    <ul class="tags"><li>SolidWorks</li><li>COMSOL Multiphysics</li></ul>
+  </div>
+  <div class="figs many"><figure><button class="zoom" data-src="images/s17_4.jpg" data-cap="Fig. 1a: Carotid bifurcation with Type 2 tumor" aria-label="Enlarge: Fig. 1a: Carotid bifurcation with Type 2 tumor"><img src="images/s17_4.jpg" alt="Fig. 1a: Carotid bifurcation with Type 2 tumor" width="314" height="237" loading="lazy"></button><figcaption>Fig. 1a: Carotid bifurcation with Type 2 tumor</figcaption></figure><figure><button class="zoom" data-src="images/s17_3.jpg" data-cap="Fig. 1b: Carotid bifurcation with Type 3 tumor" aria-label="Enlarge: Fig. 1b: Carotid bifurcation with Type 3 tumor"><img src="images/s17_3.jpg" alt="Fig. 1b: Carotid bifurcation with Type 3 tumor" width="495" height="302" loading="lazy"></button><figcaption>Fig. 1b: Carotid bifurcation with Type 3 tumor</figcaption></figure><figure><button class="zoom" data-src="images/s17_2.jpg" data-cap="Fig. 2a: Blood flow velocity simulation" aria-label="Enlarge: Fig. 2a: Blood flow velocity simulation"><img src="images/s17_2.jpg" alt="Fig. 2a: Blood flow velocity simulation" width="534" height="559" loading="lazy"></button><figcaption>Fig. 2a: Blood flow velocity simulation</figcaption></figure><figure><button class="zoom" data-src="images/s17_1.jpg" data-cap="Fig. 2b: Blood flow velocity simulation" aria-label="Enlarge: Fig. 2b: Blood flow velocity simulation"><img src="images/s17_1.jpg" alt="Fig. 2b: Blood flow velocity simulation" width="507" height="514" loading="lazy"></button><figcaption>Fig. 2b: Blood flow velocity simulation</figcaption></figure></div>
+</article>
+<article class="project" id="p18">
+  <div class="text">
+    <h3>DNA Sequencing in MATLAB</h3>
+    <p class="meta"><span>Quantitative Biochemistry, UCR</span><span>Student</span><span>Part of a 3-person team</span></p>
+    <p><strong>Goal:</strong> Analyze a text-form DNA sequence for a range of tasks.</p>
+    <p class="label">What I did</p>
+    <ul><li>Wrote MATLAB code to generate a complementary strand, count base pairs, and translate DNA to mRNA (Fig. 1)</li><li>Wrote MATLAB code to calculate hydrogen bonds, find molecular weight, and translate DNA to an amino-acid sequence</li></ul>
+    <p class="result"><strong>Result:</strong> Produced the requested values and graphs from a text-based DNA sequence.</p>
+    <ul class="tags"><li>MATLAB</li></ul>
+  </div>
+  <div class="figs"><figure><button class="zoom" data-src="images/s16_1.jpg" data-cap="Fig. 1: MATLAB output for the coding strand" aria-label="Enlarge: Fig. 1: MATLAB output for the coding strand"><img src="images/s16_1.jpg" alt="Fig. 1: MATLAB output for the coding strand" width="1253" height="622" loading="lazy"></button><figcaption>Fig. 1: MATLAB output for the coding strand</figcaption></figure></div>
+</article></section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p class="sec-sub">I'm happy to talk about any of these projects or about opportunities in research and engineering.</p>
+  <div class="contact-links">
+    <a class="btn" href="mailto:colin@daily.org">Email me</a>
+    <a class="btn ghost" href="https://www.linkedin.com/in/colin-daily" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</section>
+</div>
+</main>
+
+<footer><div class="wrap">© 2026 Colin Daily</div></footer>
+
+<dialog id="lightbox" aria-label="Enlarged image">
+  <button type="button" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
+  <img alt=""><p></p>
+</dialog>
+<script>
+  const box = document.getElementById('lightbox');
+  document.querySelectorAll('.zoom').forEach(b => b.addEventListener('click', () => {
+    box.querySelector('img').src = b.dataset.src;
+    box.querySelector('img').alt = b.dataset.cap;
+    box.querySelector('p').textContent = b.dataset.cap;
+    box.showModal();
+  }));
+  box.addEventListener('click', ev => { if (ev.target === box) box.close(); });
+</script>
+</body>
+</html>
